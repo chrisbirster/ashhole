@@ -1,6 +1,6 @@
 # Classic Admin Field Guide
 
-The `/admin` workspace is the annual source of truth for a Classic year.
+The `/admin` workspace is the annual source of truth for a Classic year. It is the only protected application area.
 
 ## 2025 — finish the historical record
 
@@ -12,7 +12,7 @@ Load **2025**, then enter:
 - ASHHOLE Cup pairings
 - final ASHHOLE Cup winner(s)
 - Gil Lugo Memorial MIG winner
-- room assignments, if you want them preserved for members
+- room assignments
 
 Use **Save 2025**. There is no need to make 2025 the front page unless you intentionally want to show it as the live Classic.
 
@@ -32,11 +32,11 @@ It deliberately clears:
 - Cup winner
 - MIG winner
 
-Update the copied information for the new trip, then use **Save 2026** while it is still being prepared.
+Update the copied information for the new trip, then use **Save 2026** while it is still being prepared as an admin draft.
 
-When 2026 should become the public homepage, use **Save & make front page**. This sets the database's current Classic year and publishes that event. The homepage then reads its schedule, field/handicaps and Cup pairings directly from 2026.
+When 2026 should become the public homepage, use **Save & make front page**. This sets the database's current Classic year and publishes that event. The homepage then reads its schedule, field/handicaps, Cup pairings and room assignments directly from 2026.
 
-## Public vs member-only
+## Public vs admin draft
 
 Public Classic API/front page:
 
@@ -44,13 +44,14 @@ Public Classic API/front page:
 - rounds and tee times
 - field and handicaps
 - Cup pairings
+- room assignments
 - published Cup/MIG results
 
-Member-only:
+Admin draft:
 
-- room assignments
+- an unpublished Classic year while you are still editing it
 
-Room assignments are never included in the public `/api/classic` response.
+There is no member endpoint and no member authentication tier.
 
 ## Authentication
 
