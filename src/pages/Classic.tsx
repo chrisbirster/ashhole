@@ -10,7 +10,7 @@ const initial: EventSummary = {
   title: '2024 ASHHOLE Classic',
   subtitle: 'Latest complete public archive',
   status: 'Archived',
-  heroImage: null,
+  heroImage: '/assets/archive/2024/group.jpg',
   cupWinner: 'Brian Bruneau',
   migWinner: 'Jeff Cochran',
   rounds: [
@@ -26,9 +26,11 @@ const initial: EventSummary = {
 
 export default function Classic() {
   const state = createApiState(api.classic, initial);
+  const heroImage = () => state.value().heroImage || (state.value().year === 2024 ? '/assets/archive/2024/group.jpg' : '/assets/scenery/shenvalee-bg.jpg');
+
   return <>
     <section {...stylex.attrs(s.hero)}>
-      {state.value().heroImage && <img {...stylex.attrs(s.heroImage)} src={state.value().heroImage!} alt="ASHHOLE group at Shenvalee" />}
+      <img {...stylex.attrs(s.heroImage)} src={heroImage()} alt={`${state.value().year} ASHHOLE group at Shenvalee`} />
       <div {...stylex.attrs(s.heroPattern)} />
       <div {...stylex.attrs(s.heroScrim)} />
       <div {...stylex.attrs(s.heroContent)}>
