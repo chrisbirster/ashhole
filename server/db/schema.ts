@@ -53,6 +53,15 @@ export const pairings = sqliteTable('pairings', {
   visibility: text('visibility').notNull().default('public'),
 });
 
+export const eventPlayers = sqliteTable('event_players', {
+  id: integer('id').primaryKey({ autoIncrement: true }),
+  eventId: integer('event_id').notNull().references(() => events.id, { onDelete: 'cascade' }),
+  ordinal: integer('ordinal').notNull(),
+  name: text('name').notNull(),
+  handicap: text('handicap'),
+  visibility: text('visibility').notNull().default('public'),
+});
+
 export const photos = sqliteTable('photos', {
   id: integer('id').primaryKey({ autoIncrement: true }),
   eventId: integer('event_id').references(() => events.id, { onDelete: 'cascade' }),
@@ -69,4 +78,9 @@ export const roomAssignments = sqliteTable('room_assignments', {
   room: text('room').notNull(),
   occupants: text('occupants').notNull(),
   visibility: text('visibility').notNull().default('member'),
+});
+
+export const siteSettings = sqliteTable('site_settings', {
+  key: text('key').primaryKey(),
+  value: text('value').notNull(),
 });
