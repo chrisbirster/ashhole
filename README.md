@@ -27,6 +27,20 @@ npm run dev
 
 Vite runs the UI and proxies `/api` to the Hono server.
 
+## Annual Classic admin
+
+Configure `ASHHOLE_ADMIN_TOKEN` on the server, then open `/admin` and enter the same token. The admin workspace edits one Classic year at a time.
+
+A normal annual workflow is:
+
+1. Load **2025** and enter the completed schedule/results, Cup winner, Gil Lugo Memorial MIG winner, field/handicaps, pairings and member-only rooms. Save it as the historical record.
+2. Load **2026**. Use **Copy previous year setup** if useful; it copies rounds, field and rooms but deliberately clears Cup pairings and award winners.
+3. Update the 2026 schedule, tee times, field, handicaps, Cup teams and rooms.
+4. Use **Save 2026** while the year is still a draft/member record.
+5. Use **Save & make front page** when 2026 should become the public Classic. The homepage immediately starts reading that year from the database; no source-code edit is required.
+
+Public Classic data includes the schedule, field/handicaps and Cup pairings. Room assignments are kept behind the member endpoint and are not returned by the public homepage API.
+
 ## Production database
 
 Local development defaults to `file:ashhole.db`. To use Turso/libSQL, set:
