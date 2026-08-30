@@ -30,7 +30,7 @@ export const SiteShell: ParentComponent = (props) => (
     <main {...stylex.attrs(s.main)}>{props.children}</main>
     <footer {...stylex.attrs(s.footer)}>
       <div {...stylex.attrs(s.footerInner)}>
-        <div><span {...stylex.attrs(s.footerStrong)}>ASHHOLE</span><br />Serious tradition. Questionable golf.</div>
+        <div><span {...stylex.attrs(s.footerStrong)}>ASHHOLE</span><br />Serious tradition. Questionable golf.<br /><a href="/admin" style="color:inherit;font-size:12px">Admin</a></div>
         <div>Shenvalee • Since 1990<br />Let us remember the good times and good friends.</div>
       </div>
     </footer>
