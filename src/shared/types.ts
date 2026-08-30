@@ -50,7 +50,7 @@ export type AdminEventDraft = {
   heroImage: string | null;
   cupWinner: string | null;
   migWinner: string | null;
-  rounds: Array<Omit<Round, 'id' | 'eventId'>>;
+  rounds: Array<Omit<Round, 'id' | 'eventId' | 'ordinal'>>;
   pairings: PairingRow[];
   field: EventPlayerRow[];
   rooms: RoomAssignmentRow[];
