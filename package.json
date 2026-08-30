@@ -7,7 +7,10 @@
     "node": ">=22.12.0"
   },
   "scripts": {
+    "assets:sync": "node scripts/sync-assets.mjs",
+    "predev": "npm run assets:sync",
     "dev": "concurrently -k -n web,api \"vite\" \"tsx watch server/index.ts\"",
+    "prebuild": "npm run assets:sync",
     "build": "vite build && tsc -p tsconfig.server.json",
     "start": "node dist-server/server/index.js",
     "typecheck": "tsc --noEmit && tsc -p tsconfig.server.json --noEmit",
