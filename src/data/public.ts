@@ -30,12 +30,25 @@ export const awards: AwardRow[] = [
 ];
 
 export const archiveCards: ArchiveCard[] = [
-  { year: 1990, title: 'The First Outing', blurb: 'Eight guys. February. Virginia. A tradition begins.', image: null },
-  { year: 1991, title: 'ASHHOLE Gets a Name', blurb: 'Dan Connelly and Roger Hanson give the weekend its permanent name.', image: null },
-  { year: 1996, title: 'The Tradition Grows', blurb: 'The field grows, the stories multiply, and Shenvalee becomes home.', image: null },
-  { year: 2003, title: 'The Cup Era', blurb: 'Competition and camaraderie settle into the modern Classic.', image: null },
-  { year: 2019, title: 'Still Hacking', blurb: 'Three decades in, the Fall Classic keeps rolling.', image: null },
-  { year: 2024, title: 'Latest Complete Archive', blurb: 'Four rounds, one Cup, and another chapter at Shenvalee.', image: null },
+  { year: 1990, title: 'The First Outing', blurb: 'Eight guys. February. Virginia. A tradition begins.', image: '/assets/archive/1990/group.jpg' },
+  { year: 1991, title: 'ASHHOLE Gets a Name', blurb: 'Dan Connelly and Roger Hanson give the weekend its permanent name.', image: '/assets/archive/1991/19910001.jpg' },
+  { year: 1996, title: 'The Tradition Grows', blurb: 'The field grows, the stories multiply, and Shenvalee becomes home.', image: '/assets/archive/1996/group.jpg' },
+  { year: 2003, title: 'The Cup Era', blurb: 'Competition and camaraderie settle into the modern Classic.', image: '/assets/archive/2003/group.jpg' },
+  { year: 2007, title: 'Still Coming Back', blurb: 'The annual pilgrimage keeps adding chapters.', image: '/assets/archive/2007/group.jpg' },
+  { year: 2008, title: 'The Classic Continues', blurb: 'Another Fall Classic at Shenvalee.', image: '/assets/archive/2008/group.jpg' },
+  { year: 2009, title: 'Twenty Years In', blurb: 'Two decades of the trip and counting.', image: '/assets/archive/2009/group.jpg' },
+  { year: 2010, title: 'The Next Decade', blurb: 'The tradition moves into its third decade.', image: '/assets/archive/2010/group.jpg' },
+  { year: 2011, title: 'Shenvalee, Again', blurb: 'The place changes less than the stories do.', image: '/assets/archive/2011/group.jpg' },
+  { year: 2012, title: 'The Field Returns', blurb: 'Another year, another photograph for the wall.', image: '/assets/archive/2012/group.jpg' },
+  { year: 2013, title: 'Fall Classic', blurb: 'The annual season-ending gathering rolls on.', image: '/assets/archive/2013/group.jpg' },
+  { year: 2017, title: 'The Tradition Holds', blurb: 'Friends, golf and Shenvalee remain the constants.', image: '/assets/archive/2017/group.jpg' },
+  { year: 2018, title: 'Another Chapter', blurb: 'Still serious about the tradition, if not always the golf.', image: '/assets/archive/2018/group.jpg' },
+  { year: 2019, title: 'Still Hacking', blurb: 'Three decades in, the Fall Classic keeps rolling.', image: '/assets/archive/2019/group.jpg' },
+  { year: 2020, title: 'The 2020 Classic', blurb: 'The tradition keeps its place on the calendar.', image: '/assets/archive/2020/group.jpg' },
+  { year: 2021, title: 'The 2021 Classic', blurb: 'Another year together at Shenvalee.', image: '/assets/archive/2021/group.jpg' },
+  { year: 2022, title: 'The 2022 Classic', blurb: 'The field returns for another Fall Classic.', image: '/assets/archive/2022/group.jpg' },
+  { year: 2023, title: 'The 2023 Classic', blurb: 'Cup teams, golf, and another weekend in the archive.', image: '/assets/archive/2023/group.jpg' },
+  { year: 2024, title: 'Latest Complete Archive', blurb: 'Four rounds, one Cup, and another chapter at Shenvalee.', image: '/assets/archive/2024/group.jpg' },
 ];
 
 export const originalEight = [
