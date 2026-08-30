@@ -18,12 +18,22 @@ This is a clean TypeScript rebuild of the historical `ashhole90` website using S
 
 ## Development
 
+The new site deliberately reuses the real ASHHOLE photography from the private `ashhole90` repository. Clone the old repository next to this one, then copy only the curated golf/archive assets:
+
 ```bash
+cd ..
+git clone https://github.com/chrisbirster/ashhole90.git
+cd ashhole
 npm install
+npm run assets:legacy -- ../ashhole90
 npm run db:migrate
 npm run db:seed
 npm run dev
 ```
+
+If `ashhole90` already exists elsewhere, pass its path to `npm run assets:legacy -- /path/to/ashhole90` or set `ASHHOLE90_PATH`.
+
+The asset migration copies the Shenvalee scenery, representative historical group photos, the complete 2024 gallery, and memorial photos. It intentionally does **not** copy the entire legacy `public/old` tree. The original logo is managed separately by `assets:sync` and is verified byte-for-byte against its historical Git blob SHA.
 
 Vite runs the UI and proxies `/api` to the Hono server.
 
