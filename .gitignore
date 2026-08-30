@@ -1,7 +1,7 @@
 node_modules/
 dist/
 dist-server/
-public/assets/
+public/assets/logo/ashholelogo.jpg
 *.db
 *.db-shm
 *.db-wal
