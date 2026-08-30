@@ -9,12 +9,12 @@ export default function Memorial() {
       <p {...stylex.attrs(s.darkLead)} style="text-align:left;margin-left:0">This part of the site is intentionally different in tone. It exists to remember friends and preserve the traditions that carry their names forward.</p>
     </div></section>
     <section {...stylex.attrs(s.section)}><div {...stylex.attrs(s.sectionInner, s.featureGrid)}>
-      <div {...stylex.attrs(s.memorialPlaque)} aria-label="Gil Lugo memorial plaque"><div {...stylex.attrs(s.plaqueSmall)}>In memory</div><div {...stylex.attrs(s.memorialInitials)}>GL</div><div {...stylex.attrs(s.plaqueTitle)}>GIL LUGO</div><div {...stylex.attrs(s.plaqueSmall)}>Memorial MIG Trophy</div></div>
+      <img {...stylex.attrs(s.featureImage)} src="/assets/memorial/gil-lugo.jpg" alt="Gil Lugo" />
       <div><div {...stylex.attrs(s.goldLabel)}>The tradition continues</div><h2 {...stylex.attrs(s.memorialName)} style="color:#00456a">Gil Lugo</h2><p {...stylex.attrs(s.storyCopy)}>The historical results identify the annual honor as the <strong>Gil Lugo Memorial MIG Trophy</strong>. The archive does not clearly define what the initials “MIG” expand to, so this site preserves the recorded name rather than inventing one.</p></div>
     </div></section>
     <section {...stylex.attrs(s.section, s.darkSection)}><div {...stylex.attrs(s.sectionInner, s.featureGrid)}>
       <div><div {...stylex.attrs(s.goldLabel)}>In memory</div><h2 {...stylex.attrs(s.memorialName)}>Joseph Ofalt</h2><p {...stylex.attrs(s.darkLead)} style="text-align:left;margin-left:0">One of the original eight who made the first Shenvalee trip in February 1990.</p></div>
-      <div {...stylex.attrs(s.memorialPlaque, s.memorialPlaqueDark)} aria-label="Joseph Ofalt memorial plaque"><div {...stylex.attrs(s.plaqueSmall)}>Original Eight • 1990</div><div {...stylex.attrs(s.memorialInitials)}>JO</div><div {...stylex.attrs(s.plaqueTitle)}>JOSEPH OFALT</div><div {...stylex.attrs(s.plaqueSmall)}>Good times • Good friends</div></div>
+      <img {...stylex.attrs(s.featureImage)} src="/assets/memorial/joe-ofalt.jpg" alt="Joseph Ofalt" />
     </div></section>
   </>;
 }
