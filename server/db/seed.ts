@@ -19,7 +19,7 @@ const seedPlayers = [
 export async function seedPublicData() {
   for (const award of publicAwards) await db.insert(awards).values({ year: award.year, migWinner: award.migWinner, cupWinner: award.cupWinner, visibility: 'public' }).onConflictDoUpdate({ target: awards.year, set: { migWinner: award.migWinner, cupWinner: award.cupWinner } });
 
-  await db.insert(events).values({ year: 2024, title: '2024 ASHHOLE Classic', subtitle: 'Latest complete public archive', status: 'Archived', heroImage: '/assets/archive/2024/group.jpg', visibility: 'public' }).onConflictDoUpdate({ target: events.year, set: { title: '2024 ASHHOLE Classic', heroImage: '/assets/archive/2024/group.jpg' } });
+  await db.insert(events).values({ year: 2024, title: '2024 ASHHOLE Classic', subtitle: 'Latest complete public archive', status: 'Archived', heroImage: null, visibility: 'public' }).onConflictDoUpdate({ target: events.year, set: { title: '2024 ASHHOLE Classic', heroImage: null } });
   const [event] = await db.select().from(events).where(eq(events.year, 2024)).limit(1);
   if (!event) throw new Error('Unable to seed 2024 event');
 
