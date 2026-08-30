@@ -16,10 +16,12 @@ export const api = {
 };
 
 export function createApiState<T extends object>(loader: () => Promise<T>, initial: T) {
-  const [value, setValue] = createSignal<T>(initial);
+  const [value, setValue] = createSignal<T>(initial as Exclude<T, Function>);
   const [error, setError] = createSignal<string | null>(null);
   if (typeof window !== 'undefined') {
-    void loader().then((next) => setValue(next)).catch((cause: unknown) => setError(cause instanceof Error ? cause.message : 'Request failed'));
+    void loader()
+      .then((next) => setValue(() => next))
+      .catch((cause: unknown) => setError(cause instanceof Error ? cause.message : 'Request failed'));
   }
   return { value, error };
 }
