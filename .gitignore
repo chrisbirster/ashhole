@@ -1,6 +1,7 @@
 node_modules/
 dist/
 dist-server/
+public/assets/
 *.db
 *.db-shm
 *.db-wal
