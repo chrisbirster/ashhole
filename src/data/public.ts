@@ -30,12 +30,12 @@ export const awards: AwardRow[] = [
 ];
 
 export const archiveCards: ArchiveCard[] = [
-  { year: 1990, title: 'The First Outing', blurb: 'Eight guys. February. Virginia. A tradition begins.', image: '/assets/archive/1990/photo.jpg' },
-  { year: 1991, title: 'ASHHOLE Gets a Name', blurb: 'Dan Connelly and Roger Hanson give the weekend its permanent name.', image: '/assets/archive/1991/document.jpg' },
-  { year: 1996, title: 'The Tradition Grows', blurb: 'The field grows, the stories multiply, and Shenvalee becomes home.', image: '/assets/archive/1996/group.jpg' },
-  { year: 2003, title: 'The Cup Era', blurb: 'Competition and camaraderie settle into the modern Classic.', image: '/assets/archive/2003/group.jpg' },
-  { year: 2019, title: 'Still Hacking', blurb: 'Three decades in, the Fall Classic keeps rolling.', image: '/assets/archive/2019/group.jpg' },
-  { year: 2024, title: 'Latest Complete Archive', blurb: 'Four rounds, one Cup, and another chapter at Shenvalee.', image: '/assets/archive/2024/group.jpg' },
+  { year: 1990, title: 'The First Outing', blurb: 'Eight guys. February. Virginia. A tradition begins.', image: null },
+  { year: 1991, title: 'ASHHOLE Gets a Name', blurb: 'Dan Connelly and Roger Hanson give the weekend its permanent name.', image: null },
+  { year: 1996, title: 'The Tradition Grows', blurb: 'The field grows, the stories multiply, and Shenvalee becomes home.', image: null },
+  { year: 2003, title: 'The Cup Era', blurb: 'Competition and camaraderie settle into the modern Classic.', image: null },
+  { year: 2019, title: 'Still Hacking', blurb: 'Three decades in, the Fall Classic keeps rolling.', image: null },
+  { year: 2024, title: 'Latest Complete Archive', blurb: 'Four rounds, one Cup, and another chapter at Shenvalee.', image: null },
 ];
 
 export const originalEight = [
