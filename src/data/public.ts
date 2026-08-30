@@ -1,4 +1,4 @@
-import type { ArchiveCard, AwardRow } from '../shared/types';
+import type { ArchiveCard, AwardRow } from '../shared/types.js';
 
 export const awards: AwardRow[] = [
   { year: 2024, migWinner: 'Jeff Cochran', cupWinner: 'Brian Bruneau' },
@@ -30,7 +30,7 @@ export const awards: AwardRow[] = [
 ];
 
 export const archiveCards: ArchiveCard[] = [
-  { year: 1990, title: 'The First Outing', blurb: 'Eight guys. February. Virginia. A tradition begins.', image: '/assets/archive/1990/original-eight.jpg' },
+  { year: 1990, title: 'The First Outing', blurb: 'Eight guys. February. Virginia. A tradition begins.', image: '/assets/archive/1990/photo.jpg' },
   { year: 1991, title: 'ASHHOLE Gets a Name', blurb: 'Dan Connelly and Roger Hanson give the weekend its permanent name.', image: '/assets/archive/1991/document.jpg' },
   { year: 1996, title: 'The Tradition Grows', blurb: 'The field grows, the stories multiply, and Shenvalee becomes home.', image: '/assets/archive/1996/group.jpg' },
   { year: 2003, title: 'The Cup Era', blurb: 'Competition and camaraderie settle into the modern Classic.', image: '/assets/archive/2003/group.jpg' },
