@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { archiveCards, awards, originalEight } from './public';
+import { archiveCards, awards, originalEight } from './public.js';
 
 describe('public legacy data', () => {
   it('preserves the original eight', () => expect(originalEight).toHaveLength(8));
