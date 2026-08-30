@@ -25,6 +25,6 @@ There are only two visibility states for year-specific Classic records:
 
 Room assignments are normal Classic data. When a Classic year is public, its room assignments are public too. There is no member endpoint, member token, or member visibility tier.
 
-The `/api/admin/*` endpoints fail with 503 when `ASHHOLE_ADMIN_TOKEN` is not configured and 401 for an invalid token. Public endpoints never return an event whose visibility is `admin`.
+`/api/admin/*` is the only protected endpoint family. It fails with 503 when `ASHHOLE_ADMIN_TOKEN` is not configured and 401 for an invalid token. Public endpoints never return an event whose visibility is `admin`.
 
 The legacy importer can remain conservative about automatically importing old room data; current room assignments should be entered through `/admin` when desired.
