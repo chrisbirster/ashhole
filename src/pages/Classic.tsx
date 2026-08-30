@@ -21,6 +21,7 @@ const initial: EventSummary = {
   ],
   pairings: [],
   field: [],
+  rooms: [],
 };
 
 export default function Classic() {
@@ -67,6 +68,15 @@ export default function Classic() {
         <h2 {...stylex.attrs(s.sectionTitle)}>ASHHOLE Cup Pairings</h2><div {...stylex.attrs(s.rule)} />
         <p {...stylex.attrs(s.sectionLead)}>The current Cup teams, updated from the admin workspace.</p>
         <div {...stylex.attrs(s.playerGrid)}><For each={state.value().pairings}>{(pair, index) => <article {...stylex.attrs(s.playerCard)}><div {...stylex.attrs(s.goldLabel)}>Team {index() + 1}</div><div {...stylex.attrs(s.playerName)}>{pair.playerOne}</div><div {...stylex.attrs(s.muted)}>{pair.playerTwo || 'TBD'}</div></article>}</For></div>
+      </div></section>
+    </Show>
+
+    <Show when={state.value().rooms.length}>
+      <section {...stylex.attrs(s.section, s.darkSection)}><div {...stylex.attrs(s.sectionInner)}>
+        <div {...stylex.attrs(s.eyebrow)}>Shenvalee</div>
+        <h2 {...stylex.attrs(s.darkTitle)} style="text-align:left">Room Assignments</h2>
+        <p {...stylex.attrs(s.darkLead)} style="text-align:left;margin-left:0">The current room assignments, published with the rest of the Classic from the admin workspace.</p>
+        <div {...stylex.attrs(s.playerGrid)}><For each={state.value().rooms}>{(room) => <article {...stylex.attrs(s.playerCard)}><div {...stylex.attrs(s.goldLabel)}>{room.room}</div><div {...stylex.attrs(s.playerName)}>{room.occupants}</div></article>}</For></div>
       </div></section>
     </Show>
 
