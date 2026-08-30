@@ -13,7 +13,7 @@ function emptyDraft(year: number): AdminEventDraft {
     title: `${year} ASHHOLE Classic`,
     subtitle: '',
     status: 'Planning',
-    visibility: 'member',
+    visibility: 'admin',
     heroImage: null,
     cupWinner: null,
     migWinner: null,
@@ -73,7 +73,7 @@ export default function Admin() {
         year: target,
         title: `${target} ASHHOLE Classic`,
         status: 'Planning',
-        visibility: 'member',
+        visibility: 'admin',
         cupWinner: null,
         migWinner: null,
         pairings: [],
@@ -140,10 +140,10 @@ export default function Admin() {
   return <section {...stylex.attrs(s.section, s.darkSection)}><div {...stylex.attrs(s.sectionInner)}>
     <div {...stylex.attrs(s.eyebrow)}>Protected workspace</div>
     <h1 {...stylex.attrs(s.darkTitle)} style="text-align:left">CLASSIC ADMIN</h1>
-    <p {...stylex.attrs(s.darkLead)} style="text-align:left;margin-left:0;max-width:820px">One screen owns a whole ASHHOLE year. Finish 2025 here, then load 2026 and publish it when the new schedule, field, handicaps, and Cup pairings are ready.</p>
+    <p {...stylex.attrs(s.darkLead)} style="text-align:left;margin-left:0;max-width:820px">One screen owns a whole ASHHOLE year. Finish 2025 here, then load 2026 and publish it when the new schedule, field, handicaps, Cup pairings, and room assignments are ready.</p>
 
     <div {...stylex.attrs(s.notice)}>
-      Public Classic data: schedule, field/handicaps, Cup pairings, and published awards. Room assignments are stored separately as member-only data and are never returned by the public front-page endpoint.
+      There is no member area. The public Classic contains the schedule, field/handicaps, Cup pairings, room assignments, and published awards. Only this admin workspace is protected.
     </div>
 
     <div style="display:grid;grid-template-columns:minmax(220px,1fr) minmax(160px,.45fr);gap:12px;max-width:760px;align-items:end">
@@ -169,7 +169,7 @@ export default function Admin() {
         </div>
         <label style="display:grid;gap:6px;margin-top:12px">Subtitle<input {...stylex.attrs(s.input)} value={draft().subtitle || ''} onInput={(e) => setDraft((v) => ({ ...v, subtitle: e.currentTarget.value }))} /></label>
         <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:12px">
-          <label style="display:grid;gap:6px">Visibility<select {...stylex.attrs(s.input)} value={draft().visibility} onChange={(e) => setDraft((v) => ({ ...v, visibility: e.currentTarget.value as Visibility }))}><option value="member">Member / draft</option><option value="public">Public</option><option value="admin">Admin only</option></select></label>
+          <label style="display:grid;gap:6px">Visibility<select {...stylex.attrs(s.input)} value={draft().visibility} onChange={(e) => setDraft((v) => ({ ...v, visibility: e.currentTarget.value as Visibility }))}><option value="admin">Admin draft</option><option value="public">Public</option></select></label>
           <label style="display:grid;gap:6px">Hero image URL (optional)<input {...stylex.attrs(s.input)} value={draft().heroImage || ''} onInput={(e) => setDraft((v) => ({ ...v, heroImage: e.currentTarget.value }))} /></label>
         </div>
         <Show when={draft().isCurrent}><p {...stylex.attrs(s.badge)}>CURRENT FRONT-PAGE YEAR</p></Show>
@@ -217,8 +217,8 @@ export default function Admin() {
       </section>
 
       <section {...stylex.attrs(s.card)}>
-        <div style="display:flex;justify-content:space-between;gap:12px;align-items:end;flex-wrap:wrap"><div><div {...stylex.attrs(s.goldLabel)}>06 · Member only</div><h2 {...stylex.attrs(s.roundTitle)}>Room assignments</h2></div><button {...stylex.attrs(s.button, s.lightButton)} type="button" onClick={() => setDraft((v) => ({ ...v, rooms: [...v.rooms, { room: '', occupants: '' }] }))}>Add room</button></div>
-        <p {...stylex.attrs(s.muted)}>These are saved behind the member endpoint. They do not appear on the public Classic page.</p>
+        <div style="display:flex;justify-content:space-between;gap:12px;align-items:end;flex-wrap:wrap"><div><div {...stylex.attrs(s.goldLabel)}>06 · Rooms</div><h2 {...stylex.attrs(s.roundTitle)}>Room assignments</h2></div><button {...stylex.attrs(s.button, s.lightButton)} type="button" onClick={() => setDraft((v) => ({ ...v, rooms: [...v.rooms, { room: '', occupants: '' }] }))}>Add room</button></div>
+        <p {...stylex.attrs(s.muted)}>Room assignments publish with the rest of the Classic when this year is public.</p>
         <div style="display:grid;gap:10px;margin-top:18px"><For each={draft().rooms}>{(room, index) => <div style="display:grid;grid-template-columns:180px 1fr auto;gap:8px;align-items:end">
           <label style="display:grid;gap:4px">Room<input {...stylex.attrs(s.input)} value={room.room} onInput={(e) => updateRoom(index(), { room: e.currentTarget.value })} /></label>
           <label style="display:grid;gap:4px">Occupants<input {...stylex.attrs(s.input)} value={room.occupants} onInput={(e) => updateRoom(index(), { occupants: e.currentTarget.value })} /></label>
