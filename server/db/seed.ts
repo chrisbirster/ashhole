@@ -16,10 +16,17 @@ const seedPlayers = [
   { slug: 'cory-wells', name: 'Cory Wells', firstYear: null, years: [2023,2024,2025] },
 ];
 
+const gallery2024 = [
+  'IMG_2561.JPG', 'IMG_2562.JPG', 'IMG_2563.JPG', 'IMG_2564.JPG',
+  'IMG_2565.JPG', 'IMG_2566.JPG', 'IMG_2567.JPG', 'IMG_2568.JPG',
+  'IMG_2569.JPG', 'IMG_2570.JPG', 'IMG_2571.JPG', 'IMG_2572.JPG',
+  'IMG_2573.JPG', 'IMG_2574.JPG', 'IMG_2578.JPG', 'IMG_2580.JPG',
+];
+
 export async function seedPublicData() {
   for (const award of publicAwards) await db.insert(awards).values({ year: award.year, migWinner: award.migWinner, cupWinner: award.cupWinner, visibility: 'public' }).onConflictDoUpdate({ target: awards.year, set: { migWinner: award.migWinner, cupWinner: award.cupWinner } });
 
-  await db.insert(events).values({ year: 2024, title: '2024 ASHHOLE Classic', subtitle: 'Latest complete public archive', status: 'Archived', heroImage: null, visibility: 'public' }).onConflictDoUpdate({ target: events.year, set: { title: '2024 ASHHOLE Classic', heroImage: null } });
+  await db.insert(events).values({ year: 2024, title: '2024 ASHHOLE Classic', subtitle: 'Latest complete public archive', status: 'Archived', heroImage: '/assets/archive/2024/group.jpg', visibility: 'public' }).onConflictDoUpdate({ target: events.year, set: { title: '2024 ASHHOLE Classic', heroImage: '/assets/archive/2024/group.jpg' } });
   const [event] = await db.select().from(events).where(eq(events.year, 2024)).limit(1);
   if (!event) throw new Error('Unable to seed 2024 event');
 
@@ -39,6 +46,12 @@ export async function seedPublicData() {
   for (const item of archiveCards) if (item.image) {
     const existing = await db.select().from(photos).where(eq(photos.src, item.image)).limit(1);
     if (!existing.length) await db.insert(photos).values({ eventId: item.year === 2024 ? event.id : null, year: item.year, src: item.image, alt: `${item.year} ASHHOLE archive`, featured: true, visibility: 'public' });
+  }
+
+  for (const filename of gallery2024) {
+    const src = `/assets/archive/2024/gallery/${filename}`;
+    const existing = await db.select().from(photos).where(eq(photos.src, src)).limit(1);
+    if (!existing.length) await db.insert(photos).values({ eventId: event.id, year: 2024, src, alt: `2024 ASHHOLE Classic — ${filename}`, featured: filename === 'IMG_2578.JPG', visibility: 'public' });
   }
 
   for (const p of seedPlayers) {
