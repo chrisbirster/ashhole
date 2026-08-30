@@ -26,10 +26,10 @@ The UI is a Vite SPA. Hono owns all server/data boundaries and serves the built 
 - `/archive/:year` — reusable yearly event page
 - `/story` — origin story
 - `/memorial` — memorials
-- `/admin` — minimal protected event editor
+- `/admin` — protected yearly event editor
 
 ## Data
 
-Public historical facts can be seeded from source control. Member/private data must only exist in the database. The schema supports event rounds, attendance, awards, Cup pairings, photos, and member-only room assignments.
+Public Classic/history data is served normally, including room assignments. Unpublished years use `admin` visibility and are only available through `/api/admin/*`. There is no member endpoint or member authentication tier.
 
-The old one-React-page-per-year architecture is intentionally gone. A year is a database record rendered through a shared route.
+The schema supports event rounds, attendance, awards, Cup pairings, field/handicaps, room assignments and photos. The old one-React-page-per-year architecture is intentionally gone: a year is a database record rendered through shared routes.
