@@ -1,4 +1,4 @@
-@layer reset, stylex, base;
+@layer reset, base, stylex;
 
 @layer reset {
   *, *::before, *::after { box-sizing: border-box; }
