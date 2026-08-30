@@ -13,15 +13,18 @@ The destination GitHub repository is currently public. Treat Git history as publ
 ## Never commit
 
 - Turso URL/token
-- member/admin bearer tokens
-- new private room assignments
-- private current-trip notes
-- contact information or credentials
+- admin bearer token
+- credentials
 
 ## Boundary
 
-`visibility` is enforced server-side. The browser never receives member/admin records through public endpoints. Protected endpoints fail with 503 when their secret is not configured and 401 for an invalid token.
+There are only two visibility states for year-specific Classic records:
 
-The legacy importer intentionally skips historical room assignment data even though older pages exposed it.
+- `public` — available through the normal public Classic/archive API
+- `admin` — unpublished draft data, available only through `/api/admin/*`
 
-For a production member portal, replace the bootstrap bearer-token mechanism with a real identity/session provider. The Hono authorization boundary is already isolated so that swap does not require redesigning public pages or the database.
+Room assignments are normal Classic data. When a Classic year is public, its room assignments are public too. There is no member endpoint, member token, or member visibility tier.
+
+The `/api/admin/*` endpoints fail with 503 when `ASHHOLE_ADMIN_TOKEN` is not configured and 401 for an invalid token. Public endpoints never return an event whose visibility is `admin`.
+
+The legacy importer can remain conservative about automatically importing old room data; current room assignments should be entered through `/admin` when desired.
