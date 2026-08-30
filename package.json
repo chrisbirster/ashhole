@@ -8,6 +8,7 @@
   },
   "scripts": {
     "assets:sync": "node scripts/sync-assets.mjs",
+    "assets:legacy": "node scripts/copy-legacy-assets.mjs",
     "predev": "npm run assets:sync",
     "dev": "concurrently -k -n web,api \"vite\" \"tsx watch server/index.ts\"",
     "prebuild": "npm run assets:sync",
