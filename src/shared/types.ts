@@ -1,4 +1,4 @@
-export type Visibility = 'public' | 'member' | 'admin';
+export type Visibility = 'public' | 'admin';
 
 export type Round = {
   id: number;
@@ -39,6 +39,7 @@ export type EventSummary = {
   rounds: Round[];
   pairings: PairingRow[];
   field: EventPlayerRow[];
+  rooms: RoomAssignmentRow[];
 };
 
 export type AdminEventDraft = {
