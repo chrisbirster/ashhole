@@ -10,7 +10,7 @@ const initial: EventSummary = {
   title: '2024 ASHHOLE Classic',
   subtitle: 'Latest complete public archive',
   status: 'Archived',
-  heroImage: '/assets/archive/2024/group.jpg',
+  heroImage: null,
   cupWinner: 'Brian Bruneau',
   migWinner: 'Jeff Cochran',
   rounds: [
@@ -25,7 +25,8 @@ export default function Classic() {
   const state = createApiState(api.classic, initial);
   return <>
     <section {...stylex.attrs(s.hero)}>
-      <img {...stylex.attrs(s.heroImage)} src={state.value().heroImage || '/assets/scenery/shenvalee-bg.jpg'} alt="ASHHOLE group at Shenvalee" />
+      {state.value().heroImage && <img {...stylex.attrs(s.heroImage)} src={state.value().heroImage!} alt="ASHHOLE group at Shenvalee" />}
+      <div {...stylex.attrs(s.heroPattern)} />
       <div {...stylex.attrs(s.heroScrim)} />
       <div {...stylex.attrs(s.heroContent)}>
         <div {...stylex.attrs(s.eyebrow)}>The Fall Classic • Shenvalee • Since 1990</div>
@@ -51,7 +52,7 @@ export default function Classic() {
     </div></section>
     <section {...stylex.attrs(s.section, s.darkSection)}><div {...stylex.attrs(s.sectionInner, s.featureGrid)}>
       <div><div {...stylex.attrs(s.goldLabel)}>The prize</div><h2 {...stylex.attrs(s.bigName)}>The ASHHOLE Cup</h2><p {...stylex.attrs(s.darkLead)} style="text-align:left;margin-left:0">Everyone comes to Shenvalee. Only one team leaves with this. Explore the complete lineage of winners and the Gil Lugo Memorial MIG Award.</p><a href="/cup" {...stylex.attrs(s.button)}>View the lineage</a></div>
-      <img {...stylex.attrs(s.featureImage)} src="/assets/scenery/shenvalee-bg.jpg" alt="Shenvalee golf course scenery" />
+      <div {...stylex.attrs(s.featurePlaque)} aria-label="ASHHOLE Cup heritage plaque"><div {...stylex.attrs(s.plaqueSmall)}>Annual Shenvalee Hackers</div><div {...stylex.attrs(s.plaqueMark)}>A</div><div {...stylex.attrs(s.plaqueTitle)}>THE ASHHOLE CUP</div><div {...stylex.attrs(s.plaqueSmall)}>Shenvalee • Since 1990</div></div>
     </div></section>
   </>;
 }
