@@ -41,6 +41,8 @@ A normal annual workflow is:
 
 Public Classic data includes the schedule, field/handicaps and Cup pairings. Room assignments are kept behind the member endpoint and are not returned by the public homepage API.
 
+See `docs/admin.md` for the annual entry checklist.
+
 ## Production database
 
 Local development defaults to `file:ashhole.db`. To use Turso/libSQL, set:
