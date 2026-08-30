@@ -77,7 +77,7 @@ export const roomAssignments = sqliteTable('room_assignments', {
   eventId: integer('event_id').notNull().references(() => events.id, { onDelete: 'cascade' }),
   room: text('room').notNull(),
   occupants: text('occupants').notNull(),
-  visibility: text('visibility').notNull().default('member'),
+  visibility: text('visibility').notNull().default('public'),
 });
 
 export const siteSettings = sqliteTable('site_settings', {
