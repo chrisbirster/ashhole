@@ -15,11 +15,11 @@ export const api = {
   archiveYear: (year: number) => json<ArchiveYear>(`/api/archive/${year}`),
 };
 
-export function createApiState<T>(loader: () => Promise<T>, initial: T) {
+export function createApiState<T extends object>(loader: () => Promise<T>, initial: T) {
   const [value, setValue] = createSignal<T>(initial);
   const [error, setError] = createSignal<string | null>(null);
   if (typeof window !== 'undefined') {
-    void loader().then(setValue).catch((cause: unknown) => setError(cause instanceof Error ? cause.message : 'Request failed'));
+    void loader().then((next) => setValue(next)).catch((cause: unknown) => setError(cause instanceof Error ? cause.message : 'Request failed'));
   }
   return { value, error };
 }

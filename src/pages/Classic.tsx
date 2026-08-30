@@ -1,6 +1,5 @@
 import { For } from 'solid-js';
 import * as stylex from '@stylexjs/stylex';
-import { A } from '@solidjs/router';
 import { api, createApiState } from '../api/client';
 import { s } from '../styles/site.stylex';
 import type { EventSummary } from '../shared/types';
@@ -35,7 +34,7 @@ export default function Classic() {
       </div>
     </section>
     <div {...stylex.attrs(s.statusGrid)}>
-      <div {...stylex.attrs(s.status)}><div {...stylex.attrs(s.statusLabel)}>Public season</div><div {...stylex.attrs(s.statusValue)}>{state.value().year}</div></div>
+      <div {...stylex.attrs(s.status)}><div {...stylex.attrs(s.statusLabel)}>Latest complete archive</div><div {...stylex.attrs(s.statusValue)}>{state.value().year}</div></div>
       <div {...stylex.attrs(s.status)}><div {...stylex.attrs(s.statusLabel)}>Rounds</div><div {...stylex.attrs(s.statusValue)}>{state.value().rounds.length}</div></div>
       <div {...stylex.attrs(s.status)}><div {...stylex.attrs(s.statusLabel)}>MIG Award</div><div {...stylex.attrs(s.statusValue)}>{state.value().migWinner || '—'}</div></div>
       <div {...stylex.attrs(s.status)}><div {...stylex.attrs(s.statusLabel)}>Cup Champion</div><div {...stylex.attrs(s.statusValue)}>{state.value().cupWinner || '—'}</div></div>
@@ -51,7 +50,7 @@ export default function Classic() {
       </article>}</For></div>
     </div></section>
     <section {...stylex.attrs(s.section, s.darkSection)}><div {...stylex.attrs(s.sectionInner, s.featureGrid)}>
-      <div><div {...stylex.attrs(s.goldLabel)}>The prize</div><h2 {...stylex.attrs(s.bigName)}>The ASHHOLE Cup</h2><p {...stylex.attrs(s.darkLead)} style="text-align:left;margin-left:0">Everyone comes to Shenvalee. Only one team leaves with this. Explore the complete lineage of winners and the Gil Lugo Memorial MIG Award.</p><A href="/cup" {...stylex.attrs(s.button)}>View the lineage</A></div>
+      <div><div {...stylex.attrs(s.goldLabel)}>The prize</div><h2 {...stylex.attrs(s.bigName)}>The ASHHOLE Cup</h2><p {...stylex.attrs(s.darkLead)} style="text-align:left;margin-left:0">Everyone comes to Shenvalee. Only one team leaves with this. Explore the complete lineage of winners and the Gil Lugo Memorial MIG Award.</p><a href="/cup" {...stylex.attrs(s.button)}>View the lineage</a></div>
       <img {...stylex.attrs(s.featureImage)} src="/assets/scenery/shenvalee-bg.jpg" alt="Shenvalee golf course scenery" />
     </div></section>
   </>;

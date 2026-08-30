@@ -1,6 +1,5 @@
 import type { ParentComponent } from 'solid-js';
 import * as stylex from '@stylexjs/stylex';
-import { A } from '@solidjs/router';
 import { s } from '../styles/site.stylex';
 
 const links = [
@@ -16,15 +15,15 @@ export const SiteShell: ParentComponent = (props) => (
   <div {...stylex.attrs(s.app)}>
     <header {...stylex.attrs(s.header)}>
       <nav {...stylex.attrs(s.nav)} aria-label="Main navigation">
-        <A href="/" {...stylex.attrs(s.brand)}>
+        <a href="/" {...stylex.attrs(s.brand)}>
           <img {...stylex.attrs(s.logo)} src="/assets/logo/ashholelogo.jpg" alt="ASHHOLE logo" />
           <div>
             <div {...stylex.attrs(s.brandTitle)}>ASHHOLE</div>
             <div {...stylex.attrs(s.brandSub)}>Annual Shenvalee Hackers<br />Holiday Of Leisurely Exercise</div>
           </div>
-        </A>
+        </a>
         <div {...stylex.attrs(s.links)}>
-          {links.map(([label, href]) => <A href={href} {...stylex.attrs(s.navLink)}>{label}</A>)}
+          {links.map(([label, href]) => <a href={href} {...stylex.attrs(s.navLink)}>{label}</a>)}
         </div>
       </nav>
     </header>
