@@ -12,6 +12,21 @@ export type Round = {
   format: string | null;
 };
 
+export type PairingRow = {
+  playerOne: string;
+  playerTwo: string | null;
+};
+
+export type EventPlayerRow = {
+  name: string;
+  handicap: string | null;
+};
+
+export type RoomAssignmentRow = {
+  room: string;
+  occupants: string;
+};
+
 export type EventSummary = {
   id: number;
   year: number;
@@ -22,6 +37,24 @@ export type EventSummary = {
   cupWinner: string | null;
   migWinner: string | null;
   rounds: Round[];
+  pairings: PairingRow[];
+  field: EventPlayerRow[];
+};
+
+export type AdminEventDraft = {
+  year: number;
+  title: string;
+  subtitle: string | null;
+  status: string;
+  visibility: Visibility;
+  heroImage: string | null;
+  cupWinner: string | null;
+  migWinner: string | null;
+  rounds: Array<Omit<Round, 'id' | 'eventId'>>;
+  pairings: PairingRow[];
+  field: EventPlayerRow[];
+  rooms: RoomAssignmentRow[];
+  isCurrent: boolean;
 };
 
 export type PlayerSummary = {
@@ -48,6 +81,5 @@ export type ArchiveCard = {
 };
 
 export type ArchiveYear = EventSummary & {
-  pairings: Array<{ playerOne: string; playerTwo: string | null }>;
   photos: Array<{ src: string; alt: string }>;
 };
