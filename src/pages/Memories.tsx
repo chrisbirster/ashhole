@@ -1,16 +1,16 @@
 import { For } from 'solid-js';
 import { api, createApiState } from '../api/client';
-import type { ArchiveCard } from '../shared/types';
+import type { MemoryPhoto } from '../shared/types';
 
 export default function Memories() {
-  const archive = createApiState<ArchiveCard[]>(api.archive, []);
+  const state = createApiState<MemoryPhoto[]>(api.memories, []);
   return (
     <div class="legacy-page center">
       <div class="legacy-photo-stack">
-        <For each={archive.value().filter((item) => item.image)}>{(item) => (
+        <For each={state.value()}>{(photo) => (
           <>
-            <p class="year-label">{item.year}</p>
-            <img src={item.image!} alt={`${item.year} ASHHOLE group`} loading="lazy" />
+            <p class="year-label">{photo.year}</p>
+            <img src={photo.src} alt={photo.alt} loading="lazy" />
           </>
         )}</For>
       </div>
