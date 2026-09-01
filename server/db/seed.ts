@@ -1,5 +1,5 @@
 import { eq } from 'drizzle-orm';
-import { archiveCards, awards as publicAwards } from '../../src/data/public.js';
+import { awards as publicAwards } from '../../src/data/public.js';
 import { db } from './client.js';
 import { attendance, awards, events, pairings, photos, players, rounds } from './schema.js';
 
@@ -24,9 +24,12 @@ const gallery2024 = [
 ];
 
 export async function seedPublicData() {
-  for (const award of publicAwards) await db.insert(awards).values({ year: award.year, migWinner: award.migWinner, cupWinner: award.cupWinner, visibility: 'public' }).onConflictDoUpdate({ target: awards.year, set: { migWinner: award.migWinner, cupWinner: award.cupWinner } });
+  for (const award of publicAwards) {
+    await db.insert(awards).values({ year: award.year, migWinner: award.migWinner, cupWinner: award.cupWinner, visibility: 'public' }).onConflictDoUpdate({ target: awards.year, set: { migWinner: award.migWinner, cupWinner: award.cupWinner } });
+  }
 
-  await db.insert(events).values({ year: 2024, title: '2024 ASHHOLE Classic', subtitle: 'Latest complete public archive', status: 'Archived', heroImage: '/assets/archive/2024/group.jpg', visibility: 'public' }).onConflictDoUpdate({ target: events.year, set: { title: '2024 ASHHOLE Classic', heroImage: '/assets/archive/2024/group.jpg' } });
+  const heroImage = '/old/2024/IMG_2578.JPG';
+  await db.insert(events).values({ year: 2024, title: '2024 ASHHOLE Classic', subtitle: 'Latest complete public archive', status: 'Archived', heroImage, visibility: 'public' }).onConflictDoUpdate({ target: events.year, set: { title: '2024 ASHHOLE Classic', heroImage } });
   const [event] = await db.select().from(events).where(eq(events.year, 2024)).limit(1);
   if (!event) throw new Error('Unable to seed 2024 event');
 
@@ -43,13 +46,8 @@ export async function seedPublicData() {
     ['Sal Nicastro Jr', 'Tony Kren'], ['Chris Birster', 'John Benedict'], ['Brian Bruneau', null], ['Cory Wells', 'Joey Nicastro'], ['Dave Cohran', 'Jeff Cochran'], ['Gregg Wells', 'Danny Cochran'], ['Sal Nicastro', 'Brian Cochran'],
   ].map(([playerOne, playerTwo]) => ({ eventId: event.id, playerOne: playerOne!, playerTwo, visibility: 'public' })));
 
-  for (const item of archiveCards) if (item.image) {
-    const existing = await db.select().from(photos).where(eq(photos.src, item.image)).limit(1);
-    if (!existing.length) await db.insert(photos).values({ eventId: item.year === 2024 ? event.id : null, year: item.year, src: item.image, alt: `${item.year} ASHHOLE archive`, featured: true, visibility: 'public' });
-  }
-
   for (const filename of gallery2024) {
-    const src = `/assets/archive/2024/gallery/${filename}`;
+    const src = `/old/2024/${filename}`;
     const existing = await db.select().from(photos).where(eq(photos.src, src)).limit(1);
     if (!existing.length) await db.insert(photos).values({ eventId: event.id, year: 2024, src, alt: `2024 ASHHOLE Classic — ${filename}`, featured: filename === 'IMG_2578.JPG', visibility: 'public' });
   }
