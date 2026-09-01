@@ -1,5 +1,5 @@
 import { createSignal } from 'solid-js';
-import type { ArchiveCard, ArchiveYear, AwardRow, EventSummary, PlayerSummary } from '../shared/types';
+import type { ArchiveCard, ArchiveYear, AwardRow, EventSummary, MemoryPhoto, PlayerSummary } from '../shared/types';
 
 async function json<T>(path: string, init?: RequestInit): Promise<T> {
   const response = await fetch(path, init);
@@ -13,6 +13,7 @@ export const api = {
   players: () => json<PlayerSummary[]>('/api/players'),
   archive: () => json<ArchiveCard[]>('/api/archive'),
   archiveYear: (year: number) => json<ArchiveYear>(`/api/archive/${year}`),
+  memories: () => json<MemoryPhoto[]>('/api/memories'),
 };
 
 export function createApiState<T extends object>(loader: () => Promise<T>, initial: T) {
