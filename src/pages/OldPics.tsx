@@ -1,24 +1,17 @@
-const photos = [
-  '/old/img216_1990.jpg',
-  '/old/img217_1990.jpg',
-  '/old/img046.jpg',
-  '/old/img048.jpg',
-  '/old/img051.jpg',
-  '/old/img052.jpg',
-  '/old/img053.jpg',
-  '/old/img054.jpg',
-  '/old/img066.jpg',
-  '/old/img063.jpg',
-  '/old/img049.jpg',
-  '/old/img064.jpg',
-];
+import { For } from 'solid-js';
+import { api, createApiState } from '../api/client';
 
 export default function OldPics() {
+  const state = createApiState(async () => {
+    const years = await Promise.all([api.archiveYear(1990), api.archiveYear(1991)]);
+    return { photos: years.flatMap((year) => year.photos) };
+  }, { photos: [] as Array<{ src: string; alt: string }> });
+
   return (
     <div class="legacy-page center">
       <div class="legacy-photo-stack">
         <p class="year-label">Early ASHHOLE 1990-91</p>
-        {photos.map((src) => <img src={src} alt="Early ASHHOLE 1990-91" loading="lazy" />)}
+        <For each={state.value().photos}>{(photo) => <img src={photo.src} alt={photo.alt || 'Early ASHHOLE 1990-91'} loading="lazy" />}</For>
       </div>
     </div>
   );
