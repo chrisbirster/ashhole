@@ -39,24 +39,11 @@ The old Next.js pages embedded annual data directly in `.tsx` arrays. The new si
 
 Routes such as `/latest-results/:year` are generic and database-driven. There is no new `2025.tsx`, `2026.tsx`, and so on.
 
-## Import the complete legacy site media and data
+## Complete legacy archive
 
-`ashhole90` is private, so the large binary archive cannot be fetched by public CI. Clone it beside this repository and run the migration locally:
+The complete contents of `ashhole90/public` have been migrated into this repository with their original paths intact. This includes the historical photo/GIF archive, `/images`, favicon, audio, and every other legacy public asset. The one-time transfer bundle was verified with SHA-256 before extraction.
 
-```bash
-cd ..
-git clone https://github.com/chrisbirster/ashhole90.git
-cd ashhole
-
-npm install
-npm run assets:legacy -- ../ashhole90
-npm run db:migrate
-npm run db:seed
-npm run import:legacy -- ../ashhole90
-ASHHOLE_ADMIN_TOKEN=ashhole-dev npm run dev
-```
-
-`npm run assets:legacy` recursively copies **every image file under `ashhole90/public`** into this project's `public` directory while preserving the exact relative path. Examples:
+Examples remain unchanged:
 
 ```text
 ashhole90/public/old/2024/IMG_2578.JPG
@@ -66,13 +53,15 @@ ashhole90/public/images/shenvalee-bg.jpg
 → ashhole/public/images/shenvalee-bg.jpg
 ```
 
-This means the historical `/old/...` and `/images/...` URLs continue to work exactly as before.
+This means historical `/old/...`, `/images/...`, and other `public/` URLs continue to work exactly as before.
+
+For repeatable local recovery, `npm run assets:legacy -- /path/to/ashhole90` recursively copies the **entire** legacy `public/` tree, preserves every relative path, verifies each copied file byte-for-byte with SHA-256, and writes an integrity manifest.
 
 `npm run import:legacy` treats the old TSX files as **one-time migration sources**. It imports players/attendance, awards, historical year tables, and photo metadata into the database. The new Solid pages then read that normalized data through the Hono API rather than retaining the old hard-coded arrays.
 
 The original ASHHOLE logo is additionally reconstructed by `assets:sync` and verified byte-for-byte against the historical Git blob SHA.
 
-> **Repository visibility:** `chrisbirster/ashhole` is currently public while `ashhole90` is private. If you commit the copied legacy images to this repository, those images become public. Keep them uncommitted or move them to private object storage if that is not intended.
+> **Repository visibility:** `chrisbirster/ashhole` is public, so the migrated legacy `public/` archive is public as well.
 
 ## Public routes
 
