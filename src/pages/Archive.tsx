@@ -5,6 +5,7 @@ import type { ArchiveCard, AwardRow } from '../shared/types';
 export default function Archive() {
   const archive = createApiState<ArchiveCard[]>(api.archive, []);
   const awards = createApiState<AwardRow[]>(api.cup, []);
+  const resultCards = () => archive.value().filter((item) => item.year >= 2019);
 
   return (
     <div class="legacy-page center">
@@ -25,7 +26,7 @@ export default function Archive() {
       </section>
 
       <div class="legacy-card-grid">
-        <For each={archive.value()}>{(item) => (
+        <For each={resultCards()}>{(item) => (
           <a href={`/latest-results/${item.year}`} class="legacy-photo-card">
             {item.image && <img src={item.image} alt={`${item.year} ASHHOLE group`} />}
             <div class="legacy-photo-card-title">{item.year}</div>
