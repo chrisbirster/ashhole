@@ -1,0 +1,48 @@
+{
+  "name": "ashhole",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=22.12.0"
+  },
+  "scripts": {
+    "assets:sync": "node scripts/sync-assets.mjs",
+    "assets:legacy": "node scripts/copy-legacy-assets.mjs",
+    "predev": "npm run assets:sync",
+    "dev": "concurrently -k -n web,api \"vite\" \"tsx watch server/index.ts\"",
+    "prebuild": "npm run assets:sync",
+    "build": "vite build && tsc -p tsconfig.server.json",
+    "start": "node dist-server/server/index.js",
+    "typecheck": "tsc --noEmit && tsc -p tsconfig.server.json --noEmit",
+    "test": "vitest run",
+    "check": "npm run typecheck && npm run test && npm run build",
+    "db:generate": "drizzle-kit generate",
+    "db:migrate": "tsx scripts/migrate.ts",
+    "db:seed": "tsx scripts/seed.ts",
+    "import:legacy": "tsx scripts/import-legacy.ts"
+  },
+  "dependencies": {
+    "@hono/node-server": "2.1.1",
+    "@libsql/client": "0.17.4",
+    "@solidjs/router": "2.0.0-next.17",
+    "@solidjs/web": "2.0.0-rc.4",
+    "@stylexjs/stylex": "0.19.0",
+    "drizzle-orm": "0.45.2",
+    "hono": "4.13.5",
+    "solid-js": "2.0.0-rc.4",
+    "zod": "4.5.4"
+  },
+  "devDependencies": {
+    "@solidjs/vite-plugin": "3.0.0-next.34",
+    "@stylexjs/unplugin": "0.19.0",
+    "@types/node": "^24.0.0",
+    "concurrently": "^9.2.1",
+    "drizzle-kit": "0.31.10",
+    "jsdom": "30.0.1",
+    "tsx": "^4.20.5",
+    "typescript": "^5.9.2",
+    "vite": "8.2.2",
+    "vitest": "^3.2.4"
+  }
+}

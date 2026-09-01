@@ -1,0 +1,12 @@
+node_modules/
+dist/
+dist-server/
+public/assets/logo/ashholelogo.jpg
+*.db
+*.db-shm
+*.db-wal
+.env
+.env.*
+!.env.example
+.DS_Store
+coverage/
