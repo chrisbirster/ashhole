@@ -1,20 +1,14 @@
-import * as stylex from '@stylexjs/stylex';
-import { s } from '../styles/site.stylex';
-
 export default function Memorial() {
-  return <>
-    <section {...stylex.attrs(s.section, s.darkSection)}><div {...stylex.attrs(s.sectionInner)}>
-      <div {...stylex.attrs(s.eyebrow)}>In memory</div>
-      <h1 {...stylex.attrs(s.darkTitle)} style="text-align:left">THE MEMORIAL</h1>
-      <p {...stylex.attrs(s.darkLead)} style="text-align:left;margin-left:0">This part of the site is intentionally different in tone. It exists to remember friends and preserve the traditions that carry their names forward.</p>
-    </div></section>
-    <section {...stylex.attrs(s.section)}><div {...stylex.attrs(s.sectionInner, s.featureGrid)}>
-      <img {...stylex.attrs(s.featureImage)} src="/assets/memorial/gil-lugo.jpg" alt="Gil Lugo" />
-      <div><div {...stylex.attrs(s.goldLabel)}>The tradition continues</div><h2 {...stylex.attrs(s.memorialName)} style="color:#00456a">Gil Lugo</h2><p {...stylex.attrs(s.storyCopy)}>The historical results identify the annual honor as the <strong>Gil Lugo Memorial MIG Trophy</strong>. The archive does not clearly define what the initials “MIG” expand to, so this site preserves the recorded name rather than inventing one.</p></div>
-    </div></section>
-    <section {...stylex.attrs(s.section, s.darkSection)}><div {...stylex.attrs(s.sectionInner, s.featureGrid)}>
-      <div><div {...stylex.attrs(s.goldLabel)}>In memory</div><h2 {...stylex.attrs(s.memorialName)}>Joseph Ofalt</h2><p {...stylex.attrs(s.darkLead)} style="text-align:left;margin-left:0">One of the original eight who made the first Shenvalee trip in February 1990.</p></div>
-      <img {...stylex.attrs(s.featureImage)} src="/assets/memorial/joe-ofalt.jpg" alt="Joseph Ofalt" />
-    </div></section>
-  </>;
+  return (
+    <div class="legacy-card-grid">
+      <a href="/tributes/joe-ofalt" class="legacy-photo-card">
+        <img src="/old/Mvc-023f.jpg" alt="Joseph Ofalt" />
+        <div class="legacy-photo-card-title">Joeseph Ofalt</div>
+      </a>
+      <a href="/tributes/gil-lugo" class="legacy-photo-card">
+        <img src="/old/110-1089_IMG.JPG" alt="Gil Lugo" />
+        <div class="legacy-photo-card-title">Gil Lugo</div>
+      </a>
+    </div>
+  );
 }
