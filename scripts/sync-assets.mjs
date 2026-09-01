@@ -4,7 +4,7 @@ import { dirname, join } from 'node:path';
 
 const exactSourceDir = 'assets-source/logo-exact';
 const legacyTailDir = 'assets-source/logo';
-const target = 'public/assets/logo/ashholelogo.jpg';
+const targets = ['public/assets/logo/ashholelogo.jpg', 'public/images/ashholelogo.jpg'];
 const expectedSha = '9e143529f85458070d71b7353e579d87c9daa7ad';
 const tailFiles = ['016.b64', '017.b64', '018.b64', '019.b64', '020.b64'];
 
@@ -31,6 +31,8 @@ if (actualSha !== expectedSha) {
   throw new Error(`Legacy logo verification failed: expected ${expectedSha}, got ${actualSha}`);
 }
 
-await mkdir(dirname(target), { recursive: true });
-await writeFile(target, bytes);
-console.log(`reconstructed ${target} from ${exactFiles.length + tailFiles.length} verified source chunks (${actualSha})`);
+for (const target of targets) {
+  await mkdir(dirname(target), { recursive: true });
+  await writeFile(target, bytes);
+}
+console.log(`reconstructed exact legacy logo at ${targets.join(' and ')} (${actualSha})`);
