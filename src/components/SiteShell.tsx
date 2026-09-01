@@ -24,7 +24,7 @@ export const SiteShell: ParentComponent = (props) => {
           class="legacy-hamburger"
           type="button"
           aria-label="Toggle navigation"
-          aria-expanded={expanded()}
+          aria-expanded={expanded() ? 'true' : 'false'}
           onClick={() => setExpanded((value) => !value)}
         >
           <svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
