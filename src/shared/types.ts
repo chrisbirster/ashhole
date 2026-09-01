@@ -81,6 +81,12 @@ export type ArchiveCard = {
   image: string | null;
 };
 
+export type MemoryPhoto = {
+  year: number;
+  src: string;
+  alt: string;
+};
+
 export type ArchiveYear = EventSummary & {
   photos: Array<{ src: string; alt: string }>;
 };
