@@ -2,7 +2,6 @@ import { serveStatic } from '@hono/node-server/serve-static';
 import { and, asc, desc, eq } from 'drizzle-orm';
 import { Hono } from 'hono';
 import { z } from 'zod';
-import { archiveCards } from '../src/data/public.js';
 import { requireAdmin } from './auth.js';
 import { db } from './db/client.js';
 import { attendance, awards, eventPlayers, events, pairings, photos, players, roomAssignments, rounds, siteSettings } from './db/schema.js';
@@ -23,8 +22,37 @@ async function getCurrentPublicEvent() {
   return latest;
 }
 
-function fallbackHero(year: number, heroImage: string | null) {
-  return heroImage || archiveCards.find((card) => card.year === year)?.image || '/assets/scenery/shenvalee-bg.jpg';
+async function getEventHero(year: number, heroImage: string | null) {
+  if (heroImage) return heroImage;
+  const [featured] = await db.select({ src: photos.src }).from(photos).where(and(eq(photos.year, year), eq(photos.visibility, 'public'), eq(photos.featured, true))).limit(1);
+  if (featured) return featured.src;
+  const [first] = await db.select({ src: photos.src }).from(photos).where(and(eq(photos.year, year), eq(photos.visibility, 'public'))).orderBy(asc(photos.id)).limit(1);
+  return first?.src ?? '/images/shenvalee-bg.jpg';
+}
+
+async function getArchiveCards() {
+  const eventRows = await db.select({ year: events.year, title: events.title, subtitle: events.subtitle, heroImage: events.heroImage }).from(events).where(eq(events.visibility, 'public'));
+  const awardRows = await db.select({ year: awards.year }).from(awards).where(eq(awards.visibility, 'public'));
+  const photoRows = await db.select({ year: photos.year, src: photos.src, featured: photos.featured }).from(photos).where(eq(photos.visibility, 'public')).orderBy(asc(photos.id));
+
+  const years = new Set<number>();
+  for (const row of eventRows) years.add(row.year);
+  for (const row of awardRows) years.add(row.year);
+  for (const row of photoRows) if (row.year >= 1990) years.add(row.year);
+
+  return [...years]
+    .sort((a, b) => b - a)
+    .map((year) => {
+      const event = eventRows.find((row) => row.year === year);
+      const yearPhotos = photoRows.filter((row) => row.year === year);
+      const image = event?.heroImage ?? yearPhotos.find((row) => row.featured)?.src ?? yearPhotos[0]?.src ?? null;
+      return {
+        year,
+        title: event?.title ?? `${year} ASHHOLE Classic`,
+        blurb: event?.subtitle ?? '',
+        image,
+      };
+    });
 }
 
 app.get('/api/classic', async (c) => {
@@ -35,7 +63,7 @@ app.get('/api/classic', async (c) => {
   const field = await db.select({ name: eventPlayers.name, handicap: eventPlayers.handicap }).from(eventPlayers).where(and(eq(eventPlayers.eventId, event.id), eq(eventPlayers.visibility, 'public'))).orderBy(asc(eventPlayers.ordinal));
   const rooms = await db.select({ room: roomAssignments.room, occupants: roomAssignments.occupants }).from(roomAssignments).where(and(eq(roomAssignments.eventId, event.id), eq(roomAssignments.visibility, 'public'))).orderBy(asc(roomAssignments.id));
   const [award] = await db.select().from(awards).where(and(eq(awards.year, event.year), eq(awards.visibility, 'public'))).limit(1);
-  return c.json({ ...event, heroImage: fallbackHero(event.year, event.heroImage), cupWinner: award?.cupWinner ?? null, migWinner: award?.migWinner ?? null, rounds: eventRounds, pairings: eventPairs, field, rooms });
+  return c.json({ ...event, heroImage: await getEventHero(event.year, event.heroImage), cupWinner: award?.cupWinner ?? null, migWinner: award?.migWinner ?? null, rounds: eventRounds, pairings: eventPairs, field, rooms });
 });
 
 app.get('/api/cup', async (c) => c.json(await db.select({ year: awards.year, migWinner: awards.migWinner, cupWinner: awards.cupWinner }).from(awards).where(eq(awards.visibility, 'public')).orderBy(desc(awards.year))));
@@ -52,24 +80,27 @@ app.get('/api/players', async (c) => {
   return c.json(result);
 });
 
-app.get('/api/archive', async (c) => c.json(archiveCards));
+app.get('/api/archive', async (c) => c.json(await getArchiveCards()));
 
 app.get('/api/archive/:year', async (c) => {
   const year = Number(c.req.param('year'));
   if (!Number.isInteger(year)) return c.json({ error: 'Invalid year.' }, 400);
   const [event] = await db.select().from(events).where(and(eq(events.year, year), eq(events.visibility, 'public'))).limit(1);
   const [award] = await db.select().from(awards).where(and(eq(awards.year, year), eq(awards.visibility, 'public'))).limit(1);
-  const yearPhotos = await db.select({ src: photos.src, alt: photos.alt }).from(photos).where(and(eq(photos.year, year), eq(photos.visibility, 'public')));
-  const card = archiveCards.find((x) => x.year === year);
+  const yearPhotos = await db.select({ src: photos.src, alt: photos.alt, featured: photos.featured }).from(photos).where(and(eq(photos.year, year), eq(photos.visibility, 'public'))).orderBy(asc(photos.id));
+  const publicPhotos = yearPhotos.map(({ src, alt }) => ({ src, alt }));
+  const photoHero = yearPhotos.find((photo) => photo.featured)?.src ?? yearPhotos[0]?.src ?? null;
+
   if (!event) {
-    if (!card && !award && !yearPhotos.length) return c.json({ error: 'Archive year not found.' }, 404);
-    return c.json({ id: year, year, title: card?.title || `${year} ASHHOLE Archive`, subtitle: card?.blurb || null, status: 'Archive', heroImage: card?.image || null, cupWinner: award?.cupWinner ?? null, migWinner: award?.migWinner ?? null, rounds: [], pairings: [], field: [], rooms: [], photos: yearPhotos });
+    if (!award && !yearPhotos.length) return c.json({ error: 'Archive year not found.' }, 404);
+    return c.json({ id: year, year, title: `${year} ASHHOLE Classic`, subtitle: null, status: 'Archive', heroImage: photoHero, cupWinner: award?.cupWinner ?? null, migWinner: award?.migWinner ?? null, rounds: [], pairings: [], field: [], rooms: [], photos: publicPhotos });
   }
+
   const eventRounds = await db.select().from(rounds).where(and(eq(rounds.eventId, event.id), eq(rounds.visibility, 'public'))).orderBy(asc(rounds.ordinal));
   const eventPairs = await db.select({ playerOne: pairings.playerOne, playerTwo: pairings.playerTwo }).from(pairings).where(and(eq(pairings.eventId, event.id), eq(pairings.visibility, 'public'))).orderBy(asc(pairings.id));
   const field = await db.select({ name: eventPlayers.name, handicap: eventPlayers.handicap }).from(eventPlayers).where(and(eq(eventPlayers.eventId, event.id), eq(eventPlayers.visibility, 'public'))).orderBy(asc(eventPlayers.ordinal));
   const rooms = await db.select({ room: roomAssignments.room, occupants: roomAssignments.occupants }).from(roomAssignments).where(and(eq(roomAssignments.eventId, event.id), eq(roomAssignments.visibility, 'public'))).orderBy(asc(roomAssignments.id));
-  return c.json({ ...event, heroImage: fallbackHero(event.year, event.heroImage), cupWinner: award?.cupWinner ?? null, migWinner: award?.migWinner ?? null, rounds: eventRounds, pairings: eventPairs, field, rooms, photos: yearPhotos });
+  return c.json({ ...event, heroImage: event.heroImage ?? photoHero ?? '/images/shenvalee-bg.jpg', cupWinner: award?.cupWinner ?? null, migWinner: award?.migWinner ?? null, rounds: eventRounds, pairings: eventPairs, field, rooms, photos: publicPhotos });
 });
 
 const visibility = z.enum(['public', 'admin']);
