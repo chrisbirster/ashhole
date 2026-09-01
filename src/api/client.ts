@@ -13,7 +13,13 @@ export const api = {
   players: () => json<PlayerSummary[]>('/api/players'),
   archive: () => json<ArchiveCard[]>('/api/archive'),
   archiveYear: (year: number) => json<ArchiveYear>(`/api/archive/${year}`),
-  memories: () => json<MemoryPhoto[]>('/api/memories'),
+  memories: async () => {
+    const archive = await json<ArchiveCard[]>('/api/archive');
+    return archive
+      .filter((item) => item.year >= 1996 && item.year <= 2019 && item.image)
+      .sort((a, b) => a.year - b.year)
+      .map<MemoryPhoto>((item) => ({ year: item.year, src: item.image!, alt: `${item.year} ASHHOLE group` }));
+  },
 };
 
 export function createApiState<T extends object>(loader: () => Promise<T>, initial: T) {
